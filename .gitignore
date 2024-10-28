@@ -1,0 +1,9 @@
+node_modules
+.temp
+.idea
+.cache
+.DS_Store
+dist
+sk.*
+**/sk.*
+**/sk/
