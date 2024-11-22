@@ -1,24 +1,23 @@
 # 单调队列
 
-例题四合一：https://leetcode.cn/problems/create-maximum-number/solutions/297892/yi-zhao-chi-bian-li-kou-si-dao-ti-ma-ma-zai-ye-b-7/
 
-单调队列模板：
+
+单调队列模板
 
 ```java
 class MonoticDeque extends ArrayDeque<Integer> {
     BiPredicate<Integer, Integer> isValid;
-    BiConsumer<Integer, Integer> prev, next;
+    Optional<BiConsumer<Integer, Integer>> prev, next;
 
     public MonoticDeque(BiPredicate<Integer, Integer> isValid) {
         this.isValid = isValid;
-        prev = next = (a, b) -> {};
     }
 
     public void push(int n) {
         while (!isEmpty() && !isValid.test(peek(), n)) {
-            next.accept(pop(), n);
+            next.ifPresent(f -> f.accept(pop(), n));
         }
-        prev.accept(peek(), n);
+        prev.ifPresent(f -> f.accept(peek(), n));
         super.push(n);
     }
     
@@ -35,6 +34,13 @@ class MonoticDeque extends ArrayDeque<Integer> {
 ```
 
 可以用模板，也可以不用，有的时候需要存额外信息，就不用用这个模板
+
+[例题四合一](https://leetcode.cn/problems/create-maximum-number/solutions/297892/yi-zhao-chi-bian-li-kou-si-dao-ti-ma-ma-zai-ye-b-7/)
+
+- [316. 去除重复字母](https://leetcode-cn.com/problems/remove-duplicate-letters/)（困难）
+- [321. 拼接最大数](https://leetcode-cn.com/problems/create-maximum-number/)（困难）
+- [402. 移掉 K 位数字](https://leetcode-cn.com/problems/remove-k-digits/)（中等）
+- [1081. 不同字符的最小子序列](https://leetcode-cn.com/problems/smallest-subsequence-of-distinct-characters/)（中等）
 
 ### 字典序最大的子序列
 

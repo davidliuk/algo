@@ -45,10 +45,10 @@ void windowPtr(
     for (int i = start, j = i + len - 1; j < end; j++) {
         in.accept(j);
         while (i < j - len + 1 && !isValid.test(i, j)) {
-            next.ifPresent(consumer -> consumer.accept(i, j));
+            next.ifPresent(f -> f.accept(i, j));
             out.accept(i++);
         }
-        prev.ifPresent(consumer -> consumer.accept(i, j));
+        prev.ifPresent(f -> f.accept(i, j));
     }
 }
 ```
